@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform;
+import 'coin_data.dart';
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -6,6 +9,46 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
+
+  //FOR ANdriod
+  DropdownButton<String> andriodButton() {
+
+    List<DropdownMenuItem<String>> dropDownList = [];
+    for (String currency in currenciesList) {
+      var newItem = DropdownMenuItem(
+        child: Text(currency),
+        value: currency,
+      );
+
+      dropDownList.add(newItem);
+    }
+    return DropdownButton<String>(
+      hint: Text(selectedCurrency),
+      items: dropDownList,
+      onChanged: (String? value) {
+        setState(() {
+          selectedCurrency = value!;
+        });
+      },
+    );
+  }
+//FOR IOS
+ CupertinoPicker iOSbutton(){
+   List<Text> pickerList = [];
+    for (String currency in currenciesList) {
+      pickerList.add(Text(currency));
+    }
+
+   return CupertinoPicker(
+              backgroundColor: Colors.lightBlue,
+              itemExtent: 32.0,
+              onSelectedItemChanged: (selectedValue) {},
+              children: pickerList,
+            );
+
+ }
+
+  String selectedCurrency = 'Select';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +62,7 @@ class _PriceScreenState extends State<PriceScreen> {
           Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
             child: Card(
-              color: Colors.lightBlueAccent,
+              color: Colors.red,
               elevation: 5.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -42,7 +85,7 @@ class _PriceScreenState extends State<PriceScreen> {
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: null,
+            child: Platform.isIOS ? iOSbutton() : andriodButton(),
           ),
         ],
       ),
