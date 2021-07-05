@@ -12,6 +12,7 @@ const List<String> currenciesList = [
   'JPY',
   'MXN',
   'NOK',
+  'NPR',
   'NZD',
   'PLN',
   'RON',
@@ -19,8 +20,8 @@ const List<String> currenciesList = [
   'SEK',
   'SGD',
   'USD',
-  'ZAR',
-  'NPR'
+  'ZAR'
+  
 ];
 
 const List<String> cryptoList = [
