@@ -20,7 +20,7 @@ class _PriceScreenState extends State<PriceScreen> {
 
   void getData() async {
     try {
-      double data = await CurrencyModel().getCurrencyData();
+      double data = await CurrencyModel(selectedCurrency).getCurrencyData();
       setState(() {
         bitconPrice = data.toStringAsFixed(2);
       });
@@ -46,6 +46,7 @@ class _PriceScreenState extends State<PriceScreen> {
       onChanged: (String? value) {
         setState(() {
           selectedCurrency = value!;
+          getData();
         });
       },
     );
@@ -66,9 +67,10 @@ class _PriceScreenState extends State<PriceScreen> {
     );
   }
 
-  String selectedCurrency = 'Select';
+  String selectedCurrency = 'USD';
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('🤑 Coin Ticker'),
@@ -88,7 +90,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC =  $bitconPrice USD',
+                  '1 BTC =  $bitconPrice $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
