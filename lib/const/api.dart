@@ -9,9 +9,10 @@ class ApiData {
   String url;
   Future getCurrency() async {
     http.Response response = await http.get(Uri.parse(url));
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       return json.decode(response.body);
-    }
-    else return print(response.statusCode);
+    } else
+      print(response.statusCode);
+    throw 'Problem With the get request';
   }
 }
